@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Payment Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76,175,80,0.3);
+        }
+        .card-details {
+            display: none;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        .card-details.show {
+            display: block;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Client Payment Form</h1>
+        <form id="payment-form" action="/handle-payment" method="POST">
+            <h2>Client Information</h2>
+            <div class="form-group">
+                <label for="client-id">Client ID</label>
+                <input type="text" id="client-id" name="client_id" placeholder="Enter Client ID" required>
+            </div>
+
+            <h2>Buyer Information</h2>
+            <div class="form-group">
+                <label for="buyer-name">Name</label>
+                <input type="text" id="buyer-name" name="buyer_name" placeholder="Enter Name" required>
+            </div>
+            <div class="form-group">
+                <label for="buyer-email">Email</label>
+                <input type="email" id="buyer-email" name="buyer_email" placeholder="Enter Email" required>
+            </div>
+            <div class="form-group">
+                <label for="buyer-cpf">CPF</label>
+                <input type="text" id="buyer-cpf" name="buyer_cpf" placeholder="Enter CPF" required>
+            </div>
+
+            <h2>Payment Information</h2>
+            <div class="form-group">
+                <label for="payment-amount">Amount</label>
+                <input type="number" id="payment-amount" name="payment_amount" placeholder="Enter Amount" required>
+            </div>
+            <div class="form-group">
+                <label for="payment-type">Payment Type</label>
+                <select id="payment-type" name="payment_type" onchange="toggleCardDetails()" required>
+                    <option value="">Select Payment Type</option>
+                    <option value="credit">Credit Card</option>
+                    <option value="debit">Debit Card</option>
+                    <option value="boleto">Boleto</option>
+                </select>
+            </div>
+
+            <div class="card-details" id="card-details">
+                <h2>Card Details</h2>
+                <div class="form-group">
+                    <label for="card-holder">Card Holder Name</label>
+                    <input type="text" id="card-holder" name="card_holder" placeholder="Enter Card Holder Name">
+                </div>
+                <div class="form-group">
+                    <label for="card-number">Card Number</label>
+                    <input type="text" id="card-number" name="card_number" placeholder="Enter Card Number">
+                </div>
+                <div class="form-group">
+                    <label for="card-expiration">Expiration Date</label>
+                    <input type="text" id="card-expiration" name="card_expiration" placeholder="MM/YY">
+                </div>
+                <div class="form-group">
+                    <label for="card-cvv">CVV</label>
+                    <input type="text" id="card-cvv" name="card_cvv" placeholder="Enter CVV">
+                </div>
+            </div>
+
+            <button type="submit">Submit Payment</button>
+        </form>
+    </div>
+
+   
+</body>
+</html>
