@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify,render_template
 app = Flask(__name__)
 import random 
 # simple mock database
+#can use anything , sqlite would be better 
 payments_db = {}
 
 def get_card_issuer(card_number):
@@ -27,6 +28,19 @@ def is_valid_card(card_number):
                 n -= 9
         total += n
     return total % 10 == 0
+
+
+def check_unique_boleto(number):
+    for payment in payments_db.values():
+        if payment.get('boleto_number') == number:
+            return False 
+    return True 
+
+def generate_unique_boleto():
+    while True:
+        number = str(random.randint(100000000000, 999999999999)) 
+        if check_unique_boleto(number):
+            return number
 
 @app.route('/')
 def index():
@@ -63,7 +77,7 @@ def handle_payment():
     }
 
     if payment_type == 'boleto':
-        boleto_number =  str(random.randint(10**11, 10**12 - 1))
+        boleto_number = str(generate_unique_boleto())
         payment_record['boleto_number'] = boleto_number
         payment_record['status'] = 'pending'
         payments_db[client_id] = payment_record
