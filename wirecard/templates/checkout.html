@@ -131,6 +131,18 @@
             <button type="submit">Submit Payment</button>
         </form>
     </div>
+<script>
+function toggleCardDetails() {
+    var paymentType = document.getElementById("payment-type").value;
+    var cardDetails = document.getElementById("card-details");
+    
+    if (paymentType === "credit" || paymentType === "debit") {
+        cardDetails.classList.add("show");
+    } else {
+        cardDetails.classList.remove("show");
+    }
+}
+</script>
 
    
 </body>

@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify,render_template
 
 app = Flask(__name__)
-
+import random 
 # simple mock database
 payments_db = {}
 
@@ -34,7 +34,6 @@ def index():
 
 @app.route('/handle-payment', methods=['POST'])
 def handle_payment():
-    # Extract form fields
     client_id = request.form.get('client_id')
     name = request.form.get('buyer_name')
     email = request.form.get('buyer_email')
@@ -64,7 +63,7 @@ def handle_payment():
     }
 
     if payment_type == 'boleto':
-        boleto_number = f"23790.12345.67890.123456 1234567890"
+        boleto_number =  str(random.randint(10**11, 10**12 - 1))
         payment_record['boleto_number'] = boleto_number
         payment_record['status'] = 'pending'
         payments_db[client_id] = payment_record
